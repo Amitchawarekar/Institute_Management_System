@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'institute_management_app'
 ]
 
 MIDDLEWARE = [
@@ -75,9 +76,16 @@ WSGI_APPLICATION = 'Institute_Management_System.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+          'ENGINE': 'django.db.backends.mysql',
+          'NAME': 'institute_management_system',
+          'USER': 'institute_management_system',
+          'PASSWORD': 'institute_management_password',
+          'HOST' : 'localhost',
+          'PORT' : '3306'
     }
+    
 }
 
 
