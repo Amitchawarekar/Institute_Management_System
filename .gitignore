@@ -130,3 +130,9 @@ dmypy.json
 
 #Virtual Environments
 envs
+
+#ignoring admin lte
+AdminLTE-3.0.2
+
+#ignoring static files
+static
