@@ -136,3 +136,7 @@ AdminLTE-3.0.2
 
 #ignoring static files
 static
+
+#ignoring .vscode files
+.vscode
+.idea
