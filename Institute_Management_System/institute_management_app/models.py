@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 # Create your models here.
 class CustomUser(AbstractUser):
     user_type_data=((1,"HOD"),(2,"Staff"),(3,"Student"))
@@ -32,11 +34,9 @@ class Students(models.Model):
     id = models.AutoField(primary_key=True)
     admin=models.OneToOneField(CustomUser,on_delete=models.CASCADE)
     batch= models.CharField(max_length=255)
-    name=models.CharField(max_length=255)
     gender=models.CharField(max_length=255)
     contact1 =models.BigIntegerField(max_length=255)
     contact2 =models.BigIntegerField(max_length=255)
-    email=models.CharField(max_length=255)
     dob = models.CharField(max_length=255)
     course_id=models.ForeignKey(Courses,on_delete=models.DO_NOTHING)
     course = models.CharField(max_length=255)
@@ -44,7 +44,6 @@ class Students(models.Model):
     amount_paid = models.BigIntegerField(max_length=255)
     date_ap = models.DateTimeField(auto_now_add=True)
     balance = models.BigIntegerField(max_length=255)
-    password=models.CharField(max_length=255)
     profile_pic = models.FileField()
     address=models.TextField()
     created_at=models.DateTimeField(auto_now_add=True)
@@ -108,5 +107,23 @@ class NotificationStaffs(models.Model):
     updated_at = models.DateTimeField(auto_now_add=True)
     objects = models.Manager()
     
+@receiver(post_save,sender=CustomUser)
+def create_user_profile(sender,instance,created,**kwargs):
+    if created:
+        if instance.user_type==1:
+            AdminHOD.objects.create(admin=instance)
+        if instance.user_type==2:
+            Staffs.objects.create(admin=instance)
+        if instance.user_type==3:
+            Students.objects.create(admin=instance)
 
+
+@receiver(post_save,sender=CustomUser)
+def save_user_profile(sender,instance,**kwargs):
+    if instance.user_type==1:
+        instance.adminhod.save()
+    if instance.user_type==2:
+        instance.staffs.save()
+    if instance.user_type==3:
+        instance.students.save()
 
