@@ -140,3 +140,9 @@ static
 #ignoring .vscode files
 .vscode
 .idea
+
+#ignoring zip files
+AdminZip-3.0.2.zip
+
+#ignoring notepad files
+notepad.txt
