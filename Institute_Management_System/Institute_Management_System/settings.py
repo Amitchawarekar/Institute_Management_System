@@ -134,6 +134,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 AUTH_USER_MODEL="institute_management_app.CustomUser"
+AUTHENTICATION_BACKENDS = ['institute_management_app.EmailBackEnd.EmailBackEnd']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
