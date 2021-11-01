@@ -19,9 +19,11 @@ from django.conf.urls.static import static
 from institute_management_app import views
 from Institute_Management_System import settings
 
-urlpatterns = [
+urlpatterns = [  
     path('demo',views.showDemoPage),
     path('admin/', admin.site.urls),
+    path('',views.ShowLoginPage),
+    path('doLogin',views.doLogin)
 
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
 
