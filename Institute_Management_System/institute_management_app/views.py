@@ -1,5 +1,6 @@
 import datetime
 
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -20,10 +21,11 @@ def doLogin(request):
         user=EmailBackEnd.authenticate(request,username=request.POST.get("email"),password=request.POST.get("password"))
         if user!=None:
             login(request,user)
-            return HttpResponse("Email :" + request.POST.get("email")+"Password : "+request.POST.get("password"))
+            return HttpResponseRedirect("/admin_home")
         else:
-            # messages.error(request,"Invalid Login Details")
-            return HttpResponse("Invalid Login")
+
+            messages.error(request,"Invalid Login Details")
+            return HttpResponseRedirect("/")
 
 
 def GetUserDetails(request):
